@@ -24,7 +24,35 @@ const refreshLettersBoard = function() {
   }
 }
 
-
+const checkAnswer = function(answer) {
+  axios({
+    "method":"GET",
+    "url":"https://twinword-word-graph-dictionary.p.rapidapi.com/definition/",
+    "headers":{
+    "content-type":"application/octet-stream",
+    "x-rapidapi-host":"twinword-word-graph-dictionary.p.rapidapi.com",
+    "x-rapidapi-key":apikey,
+    "useQueryString":true
+    },"params":{
+    "entry":answer
+    }
+    })
+    .then((response)=>{
+      if (response.data.meaning) {
+        document.querySelector('.display-word').textContent = response.data.entry
+        document.querySelector('.adjective').textContent = response.data.meaning.adjective
+        document.querySelector('.adverb').textContent = response.data.meaning.adverb
+        document.querySelector('.noun').textContent = response.data.meaning.noun
+        document.querySelector('.verb').textContent = response.data.meaning.verb
+      } else {
+        document.querySelector('.display-word').textContent = response.data.result_msg
+      }
+    })
+    .catch((error)=>{
+      console.log(error)
+      document.querySelector('.display-word').textContent = error.result_msg
+  })
+}
 
 const handleConsonantBtn = function() {
   lettersBoard.push(randomConsonant());
@@ -45,8 +73,13 @@ const handleClearLettersBtn = function() {
 
 // -------------------------------------------//
 const startStopWatch = function() {
+  if (!(Number(stopWatch.textContent) <= 0) )
   stopWatch.textContent = Math.round(((stopWatch.textContent - 0.01) + Number.EPSILON) * 100) / 100;
+  document.querySelector('.your-answer').disabled = false;
   if (Number(stopWatch.textContent) <= 0 ) {
+    // checkWord using input
+    checkAnswer(document.querySelector('.your-answer').value)
+    document.querySelector('.your-answer').disabled = true;
     clearInterval(idOfInterval);
   }
 }
@@ -57,7 +90,7 @@ const handleStartBtn = function(e) {
 }
 
 const handleResetStopWatchBtn = function() {
-  stopWatch.textContent = 30;
+  stopWatch.textContent = 4;
   document.querySelector(".start").disabled = false;
   clearInterval(idOfInterval);
 }
@@ -105,22 +138,4 @@ document.querySelector(".small-number").addEventListener("click", handleSmallNum
 document.querySelector(".clear-numbers").addEventListener("click", handleClearNumbersBtn);
 
 
-axios({
-  "method":"GET",
-  "url":"https://twinword-word-graph-dictionary.p.rapidapi.com/definition/",
-  "headers":{
-  "content-type":"application/octet-stream",
-  "x-rapidapi-host":"twinword-word-graph-dictionary.p.rapidapi.com",
-  "x-rapidapi-key":apikey,
-  "useQueryString":true
-  },"params":{
-  "entry":"cake"
-  }
-  })
-  .then((response)=>{
-    console.log(response)
-  })
-  .catch((error)=>{
-    console.log(error)
-  })
 

@@ -95,3 +95,25 @@ button {
 .letters, .numbers, .timer {
   margin: 50px;
 }
+
+.definition, .display-word {
+  font-size: 27px;
+  display: block;
+  width: 70%;
+  margin: 10px auto;
+}
+
+.answer-module {
+  width: 40%;
+  margin: 20px auto 0 auto;
+  justify-content: center;
+}
+
+.answer-label {
+  font-size: 25px;
+}
+
+.your-answer {
+  margin-left: 5px;
+  height: 25px;
+}
