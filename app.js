@@ -90,7 +90,7 @@ const handleStartBtn = function(e) {
 }
 
 const handleResetStopWatchBtn = function() {
-  stopWatch.textContent = 4;
+  stopWatch.textContent = 30;
   document.querySelector(".start").disabled = false;
   clearInterval(idOfInterval);
 }
