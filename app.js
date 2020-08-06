@@ -1,4 +1,4 @@
-const apikey = config.dictionaryKey
+// const apikey = config.dictionaryKey
 
 let lettersBoard = [];
 let numbersBoard = [];
@@ -78,7 +78,7 @@ const startStopWatch = function() {
   document.querySelector('.your-answer').disabled = false;
   if (Number(stopWatch.textContent) <= 0 ) {
     // checkWord using input
-    checkAnswer(document.querySelector('.your-answer').value)
+    // checkAnswer(document.querySelector('.your-answer').value)
     document.querySelector('.your-answer').disabled = true;
     clearInterval(idOfInterval);
   }
